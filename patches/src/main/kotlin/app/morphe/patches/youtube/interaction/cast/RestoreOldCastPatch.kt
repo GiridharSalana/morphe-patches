@@ -55,6 +55,14 @@ val restoreOldCastPatch = patch(
                 invoke-static { }, $EXTENSION_CLASS->showCloseCastPlayerDialog()Z
                 move-result v0
                 if-nez v0, :show_dialog
+                iget-object v0, p0, Lrje;->d:Lsdc;
+                iget-object v0, v0, Lsdc;->c:Lbtuz;
+                invoke-interface { v0 }, Lbtuz;->nu()Ljava/lang/Object;
+                move-result-object v0
+                check-cast v0, Lrzd;
+                const/4 v1, 0x1
+                const/4 v2, 0x0
+                invoke-virtual { v0, v1, v2 }, Lrzd;->k(IZ)V
                 return-void
                 :show_dialog
                 nop
