@@ -7,6 +7,7 @@
 
 package app.morphe.patches.youtube.interaction.cast
 
+import app.morphe.patcher.extensions.InstructionExtensions.addInstructionsWithLabels
 import app.morphe.patcher.patch.patch
 import app.morphe.patcher.util.matchAllMethodIndicesForEach
 import app.morphe.patches.shared.misc.settings.preference.SwitchPreference
@@ -46,6 +47,19 @@ val restoreOldCastPatch = patch(
                 "$EXTENSION_CLASS->disconnectCastOnVideoSelect(Z)Z"
             )
         }
+
+        // Skip the dialog that asks to clear the TV queue, so the player is not closed with the Cast session.
+        CastClosePlayerDialogFingerprint.method.addInstructionsWithLabels(
+            0,
+            """
+                invoke-static { }, $EXTENSION_CLASS->showCloseCastPlayerDialog()Z
+                move-result v0
+                if-nez v0, :show_dialog
+                return-void
+                :show_dialog
+                nop
+            """
+        )
 
         if (is_21_28_or_greater) {
             CastDisconnectOnPlayerCloseFeatureFlagFingerprint.matchAllMethodIndicesForEach { index ->

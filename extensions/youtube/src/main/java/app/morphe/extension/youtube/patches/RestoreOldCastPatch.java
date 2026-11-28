@@ -31,4 +31,13 @@ public final class RestoreOldCastPatch {
     public static boolean disconnectCastOnPlayerClose(boolean original) {
         return original && !RESTORE_OLD_CAST_BEHAVIOR;
     }
+
+    /**
+     * Injection point.
+     *
+     * @return If the dialog that asks to clear the TV queue is shown when the player is closed while casting.
+     */
+    public static boolean showCloseCastPlayerDialog() {
+        return !RESTORE_OLD_CAST_BEHAVIOR;
+    }
 }
