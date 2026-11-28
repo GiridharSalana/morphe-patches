@@ -60,9 +60,7 @@ val restoreOldCastPatch = patch(
                 invoke-interface { v0 }, Lbtuz;->nu()Ljava/lang/Object;
                 move-result-object v0
                 check-cast v0, Lrzd;
-                const/4 v1, 0x1
-                const/4 v2, 0x0
-                invoke-virtual { v0, v1, v2 }, Lrzd;->k(IZ)V
+                invoke-virtual { v0 }, Lrzd;->i()V
                 return-void
                 :show_dialog
                 nop
