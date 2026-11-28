@@ -48,7 +48,8 @@ val restoreOldCastPatch = patch(
             )
         }
 
-        // Skip the dialog that asks to clear the TV queue, so the player is not closed with the Cast session.
+        // Skip the dialog that asks to clear the TV queue and do what its Cancel button does,
+        // which shows the mini player and keeps the Cast session.
         CastClosePlayerDialogFingerprint.method.addInstructionsWithLabels(
             0,
             """
@@ -56,11 +57,8 @@ val restoreOldCastPatch = patch(
                 move-result v0
                 if-nez v0, :show_dialog
                 iget-object v0, p0, Lrje;->d:Lsdc;
-                iget-object v0, v0, Lsdc;->c:Lbtuz;
-                invoke-interface { v0 }, Lbtuz;->nu()Ljava/lang/Object;
-                move-result-object v0
-                check-cast v0, Lrzd;
-                invoke-virtual { v0 }, Lrzd;->i()V
+                const/4 v1, 0x1
+                invoke-virtual { v0, v1, v1 }, Lsdc;->B(II)V
                 return-void
                 :show_dialog
                 nop
