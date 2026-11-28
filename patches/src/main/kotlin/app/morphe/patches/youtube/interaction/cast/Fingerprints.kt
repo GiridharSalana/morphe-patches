@@ -46,3 +46,12 @@ internal object CastClosePlayerDialogFingerprint : Fingerprint(
         resourceLiteral(ResourceType.STRING, "mdx_floaty_bar_clear_queue_dialog_title")
     )
 )
+
+/**
+ * When on, swiping down the player dismisses it, instead of minimizing it to the miniplayer.
+ */
+internal object PlayerDismissOnSwipeFeatureFlagFingerprint : Fingerprint(
+    filters = listOf(
+        literal(45657015L)
+    )
+)

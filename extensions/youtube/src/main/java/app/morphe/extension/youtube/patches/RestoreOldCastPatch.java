@@ -63,4 +63,13 @@ public final class RestoreOldCastPatch {
             }
         }, 400);
     }
+
+    /**
+     * Injection point.
+     *
+     * @param original If swiping down the player dismisses it instead of minimizing it.
+     */
+    public static boolean dismissPlayerOnSwipe(boolean original) {
+        return original && !RESTORE_OLD_CAST_BEHAVIOR;
+    }
 }
