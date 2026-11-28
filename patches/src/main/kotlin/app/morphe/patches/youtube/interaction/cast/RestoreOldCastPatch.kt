@@ -47,6 +47,13 @@ val restoreOldCastPatch = patch(
             )
         }
 
+        CastSwipeDownTargetFingerprint.let {
+            it.method.insertLiteralOverride(
+                it.instructionMatches.first().index,
+                "$EXTENSION_CLASS->dismissPlayerOnSwipeWhileCasting(Z)Z"
+            )
+        }
+
         if (is_21_28_or_greater) {
             CastDisconnectOnPlayerCloseFeatureFlagFingerprint.matchAllMethodIndicesForEach { index ->
                 insertLiteralOverride(index, "$EXTENSION_CLASS->disconnectCastOnPlayerClose(Z)Z")
