@@ -83,4 +83,14 @@ public final class RestoreOldCastPatch {
     public static void logPlayerStateDirect(int state) {
         Log.w("MorpheCast", "rkt.i state=" + state, new Throwable());
     }
+
+    /**
+     * Injection point.
+     *
+     * @param original If swiping down the player while casting dismisses it into the You tab,
+     *                 instead of minimizing it.
+     */
+    public static boolean dismissPlayerToYouTabOnSwipe(boolean original) {
+        return original && !RESTORE_OLD_CAST_BEHAVIOR;
+    }
 }

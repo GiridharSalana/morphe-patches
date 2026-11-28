@@ -72,6 +72,13 @@ val restoreOldCastPatch = patch(
         mutableClassDefBy("Lrkt;").methods.first { it.name == "i" && it.parameterTypes.map(Any::toString) == listOf("I") }
             .addInstructions(0, "invoke-static { p1 }, $EXTENSION_CLASS->logPlayerStateDirect(I)V")
 
+        CastSwipeDownTargetFingerprint.let {
+            it.method.insertLiteralOverride(
+                it.instructionMatches.first().index,
+                "$EXTENSION_CLASS->dismissPlayerToYouTabOnSwipe(Z)Z"
+            )
+        }
+
         PlayerDismissOnSwipeFeatureFlagFingerprint.matchAllMethodIndicesForEach { index ->
             insertLiteralOverride(index, "$EXTENSION_CLASS->dismissPlayerOnSwipe(Z)Z")
         }

@@ -55,3 +55,17 @@ internal object PlayerDismissOnSwipeFeatureFlagFingerprint : Fingerprint(
         literal(45657015L)
     )
 )
+
+/**
+ * Picks where the player goes when swiped down.
+ * While casting with the flag, the player is dismissed into the You tab instead of minimized.
+ */
+internal object CastSwipeDownTargetFingerprint : Fingerprint(
+    accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.FINAL),
+    returnType = "I",
+    parameters = listOf("I"),
+    filters = listOf(
+        literal(45783248L),
+        literal(4096L)
+    )
+)
