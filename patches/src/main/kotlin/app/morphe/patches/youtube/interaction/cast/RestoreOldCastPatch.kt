@@ -7,7 +7,9 @@
 
 package app.morphe.patches.youtube.interaction.cast
 
+import app.morphe.patcher.extensions.InstructionExtensions.addInstructions
 import app.morphe.patcher.extensions.InstructionExtensions.addInstructionsWithLabels
+import app.morphe.patcher.patch.mutableClassDefBy
 import app.morphe.patcher.patch.patch
 import app.morphe.patcher.util.matchAllMethodIndicesForEach
 import app.morphe.patches.shared.misc.settings.preference.SwitchPreference
@@ -63,6 +65,12 @@ val restoreOldCastPatch = patch(
                 nop
             """
         )
+
+        // TEMPORARY DEBUG: log the player state changes with a stack trace.
+        mutableClassDefBy("Lrzd;").methods.first { it.name == "k" && it.parameterTypes.map(Any::toString) == listOf("I", "Z") }
+            .addInstructions(0, "invoke-static { p1, p2 }, $EXTENSION_CLASS->logPlayerState(IZ)V")
+        mutableClassDefBy("Lrkt;").methods.first { it.name == "i" && it.parameterTypes.map(Any::toString) == listOf("I") }
+            .addInstructions(0, "invoke-static { p1 }, $EXTENSION_CLASS->logPlayerStateDirect(I)V")
 
         PlayerDismissOnSwipeFeatureFlagFingerprint.matchAllMethodIndicesForEach { index ->
             insertLiteralOverride(index, "$EXTENSION_CLASS->dismissPlayerOnSwipe(Z)Z")

@@ -8,6 +8,7 @@
 package app.morphe.extension.youtube.patches;
 
 import android.os.Handler;
+import android.util.Log;
 import android.os.Looper;
 
 import java.lang.reflect.Method;
@@ -71,5 +72,15 @@ public final class RestoreOldCastPatch {
      */
     public static boolean dismissPlayerOnSwipe(boolean original) {
         return original && !RESTORE_OLD_CAST_BEHAVIOR;
+    }
+
+    // TEMPORARY DEBUG
+    public static void logPlayerState(int state, boolean animate) {
+        Log.w("MorpheCast", "rzd.k state=" + state + " animate=" + animate, new Throwable());
+    }
+
+    // TEMPORARY DEBUG
+    public static void logPlayerStateDirect(int state) {
+        Log.w("MorpheCast", "rkt.i state=" + state, new Throwable());
     }
 }
