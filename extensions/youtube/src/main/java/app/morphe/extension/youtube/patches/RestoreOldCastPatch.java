@@ -7,6 +7,12 @@
 
 package app.morphe.extension.youtube.patches;
 
+import android.os.Handler;
+import android.os.Looper;
+
+import java.lang.reflect.Method;
+
+import app.morphe.extension.shared.Logger;
 import app.morphe.extension.youtube.settings.Settings;
 
 @SuppressWarnings("unused")
@@ -39,5 +45,22 @@ public final class RestoreOldCastPatch {
      */
     public static boolean showCloseCastPlayerDialog() {
         return !RESTORE_OLD_CAST_BEHAVIOR;
+    }
+
+    /**
+     * Injection point.
+     * Runs the same call as the Cancel button of the dialog, after the player close has finished.
+     *
+     * @param playerController The object with the method that shows the miniplayer.
+     */
+    public static void showMiniplayerAfterClose(Object playerController) {
+        new Handler(Looper.getMainLooper()).postDelayed(() -> {
+            try {
+                Method method = playerController.getClass().getMethod("B", int.class, int.class);
+                method.invoke(playerController, 1, 1);
+            } catch (Exception ex) {
+                Logger.printException(() -> "showMiniplayerAfterClose failure", ex);
+            }
+        }, 400);
     }
 }

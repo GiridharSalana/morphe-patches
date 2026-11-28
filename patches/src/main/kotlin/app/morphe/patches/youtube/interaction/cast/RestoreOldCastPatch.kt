@@ -57,8 +57,7 @@ val restoreOldCastPatch = patch(
                 move-result v0
                 if-nez v0, :show_dialog
                 iget-object v0, p0, Lrje;->d:Lsdc;
-                const/4 v1, 0x1
-                invoke-virtual { v0, v1, v1 }, Lsdc;->B(II)V
+                invoke-static { v0 }, $EXTENSION_CLASS->showMiniplayerAfterClose(Ljava/lang/Object;)V
                 return-void
                 :show_dialog
                 nop
